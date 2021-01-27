@@ -2,7 +2,7 @@ const express = require('express');
 const { join } = require('path');
 const headerServiceRoutes = require('./routes/headerRoutes');
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 
 const publicPath = join(__dirname, 'dist');
 

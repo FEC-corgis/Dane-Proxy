@@ -4,7 +4,7 @@ const axios = require('axios');
 router.get('/photos/:propertyId', async (req, res) => {
     try {
         const { data } = await axios.get(
-            `http://localhost:5000/api/photos/${req.params.propertyId}`
+            `http://localhost:5001/api/photos/${req.params.propertyId}`
         );
 
         return res.status(200).json(data);
