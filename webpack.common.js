@@ -43,6 +43,6 @@ module.exports = {
             template: resolve(__dirname, 'public', 'index.html'),
         }),
         new MiniCssExtractPlugin({ filename: 'style.css' }),
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
     ],
 };
