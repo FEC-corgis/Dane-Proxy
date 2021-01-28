@@ -1,5 +1,5 @@
-const { hostedbyCache } = require('../middleware/hostedbyCache');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const { hostedbyCache } = require('../middleware/hostedbyCache');
 
 module.exports = [
     '/api/hostedbyService/:propertyId',

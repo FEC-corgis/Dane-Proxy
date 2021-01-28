@@ -7,8 +7,7 @@ module.exports.hostedbyCache = (req, res, next) => {
 
         if (data != null) {
             return res.status(200).send(data);
-        } else {
-            next();
         }
+        next();
     });
 };

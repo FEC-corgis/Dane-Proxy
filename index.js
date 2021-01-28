@@ -2,6 +2,7 @@ const express = require('express');
 const { join } = require('path');
 const headerArgs = require('./routes/headerRoutes');
 const hostedbyArgs = require('./routes/hostedbyRoutes');
+
 const app = express();
 const port = process.env.PORT || 5000;
 const publicPath = join(__dirname, 'dist');
