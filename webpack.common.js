@@ -1,19 +1,20 @@
+const { resolve } = require('path');
+const {
+    header,
+    hostedby,
+    headerNodeModules,
+    hostedbyNodeModules,
+} = require('./servicePaths');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { resolve } = require('path');
-
-const service1Path = resolve(
-    __dirname,
-    '..',
-    'HeaderService',
-    'frontend',
-    'src',
-    'index.jsx'
-);
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: [service1Path],
-
+    entry: {
+        header,
+        hostedby,
+    },
     module: {
         rules: [
             { test: /\.jsx$/, use: 'babel-loader', exclude: /node_modules/ },
@@ -29,11 +30,19 @@ module.exports = {
     },
     resolve: {
         extensions: ['.jsx', '.js'],
+        modules: [headerNodeModules, hostedbyNodeModules],
+    },
+    optimization: {
+        splitChunks: {
+            name: 'common',
+            chunks: 'all',
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: resolve(__dirname, 'public', 'index.html'),
         }),
         new MiniCssExtractPlugin({ filename: 'style.css' }),
+        new BundleAnalyzerPlugin(),
     ],
 };

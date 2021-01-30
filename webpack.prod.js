@@ -6,7 +6,7 @@ const { resolve } = require('path');
 module.exports = merge(common, {
     mode: 'production',
     output: {
-        filename: 'main.js',
+        filename: '[name].bundle.js',
         path: resolve(__dirname, 'dist'),
         publicPath: '/',
     },
