@@ -16,12 +16,7 @@ app.get('*', (_req, res) => {
         Key: 'static/index.html',
     };
 
-    s3.getObject(params)
-        .on('httpHeaders', (code, headers) => {
-            res.set('Cache-Control', 'public, max-age=31557600');
-        })
-        .createReadStream()
-        .pipe(res);
+    s3.getObject(params).createReadStream().pipe(res);
 });
 
 app.listen(port, () => console.log(`Proxy started on port ${port}...`));

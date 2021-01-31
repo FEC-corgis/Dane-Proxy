@@ -8,7 +8,7 @@ module.exports = merge(common, {
     output: {
         filename: '[name].bundle.js',
         path: resolve(__dirname, 'dist'),
-        publicPath: 'https://fec-corgis.s3.amazonaws.com/static',
+        publicPath: 'https://fec-corgis.s3.amazonaws.com/static/',
     },
     plugins: [new CleanWebpackPlugin()],
     performance: {
