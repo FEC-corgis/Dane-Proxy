@@ -7,11 +7,13 @@ module.exports = [
     headerCache,
     createProxyMiddleware({
         target: 'http://localhost:5001',
-        onProxyRes: (proxyRes, req, _res) => {
+        onProxyRes: (proxyRes, req, res) => {
             const { propertyId } = req.params;
             proxyRes.on('data', (data) => {
-                const cacheData = data.toString();
-                client.setex(`header${propertyId}`, 3600, cacheData);
+                if (res.statusCode < 400) {
+                    const cacheData = data.toString();
+                    client.setex(`header${propertyId}`, 3600, cacheData);
+                }
             });
         },
     }),

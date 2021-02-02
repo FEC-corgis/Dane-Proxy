@@ -7,11 +7,13 @@ module.exports = [
     hostedbyCache,
     createProxyMiddleware({
         target: 'http://localhost:5002',
-        onProxyRes: (proxyRes, req, _res) => {
+        onProxyRes: (proxyRes, req, res) => {
             const { propertyId } = req.params;
             proxyRes.on('data', (data) => {
-                const cacheData = data.toString();
-                client.setex(`hostedby${propertyId}`, 3600, cacheData);
+                if (res.statusCode < 400) {
+                    const cacheData = data.toString();
+                    client.setex(`hostedby${propertyId}`, 3600, cacheData);
+                }
             });
         },
     }),
