@@ -1,8 +1,8 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = [
-    '/propertyDetails',
+    '/reviews',
     createProxyMiddleware({
-        target: 'http://localhost:5545',
+        target: 'http://localhost:1984',
     }),
 ];

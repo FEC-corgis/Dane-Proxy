@@ -2,6 +2,7 @@ const express = require('express');
 const { S3 } = require('aws-sdk');
 const headerArgs = require('./routes/headerRoutes');
 const hostedbyArgs = require('./routes/hostedbyRoutes');
+const reviewsArgs = require('./routes/reviewsRoutes');
 const entirehouseArgs = require('./routes/entirehouseRoutes');
 const { join } = require('path');
 
@@ -14,6 +15,7 @@ app.use(express.static(join(__dirname, 'public')));
 app.use(...headerArgs);
 app.use(...hostedbyArgs);
 app.use(...entirehouseArgs);
+app.use(...reviewsArgs);
 
 app.get('*', (_req, res) => {
     const params = {
