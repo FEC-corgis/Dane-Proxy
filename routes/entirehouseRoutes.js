@@ -3,6 +3,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = [
     '/propertyDetails',
     createProxyMiddleware({
-        target: 'http://localhost:5545',
+        target: process.env.ENTIRE_HOUSE_DOMAIN,
     }),
 ];
