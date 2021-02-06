@@ -6,7 +6,7 @@ module.exports = [
     '/api/headerService/:propertyId',
     headerCache,
     createProxyMiddleware({
-        target: 'http://localhost:5001',
+        target: `http://${process.env.HEADER_DOMAIN}`,
         onProxyRes: (proxyRes, req, res) => {
             const { propertyId } = req.params;
             proxyRes.on('data', (data) => {

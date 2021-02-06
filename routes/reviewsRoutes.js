@@ -3,6 +3,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = [
     '/reviews',
     createProxyMiddleware({
-        target: 'http://localhost:1984',
+        target: `http://${process.env.REVIEWS_DOMAIN}`,
     }),
 ];
