@@ -3,7 +3,7 @@ const { S3 } = require('aws-sdk');
 const headerArgs = require('./routes/headerRoutes');
 const hostedbyArgs = require('./routes/hostedbyRoutes');
 const reviewsArgs = require('./routes/reviewsRoutes');
-const entirehouseArgs = require('./routes/entirehouseRoutes');
+const entireHouseArgs = require('./routes/entirehouseRoutes');
 
 const s3 = new S3();
 const app = express();
@@ -11,8 +11,8 @@ const port = process.env.PORT || 5000;
 
 app.use(...headerArgs);
 app.use(...hostedbyArgs);
-app.use(...entirehouseArgs);
 app.use(...reviewsArgs);
+app.use(...entireHouseArgs);
 
 app.get('*', (_req, res) => {
     const params = {
