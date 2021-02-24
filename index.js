@@ -4,6 +4,7 @@ const headerArgs = require('./routes/headerRoutes');
 const hostedbyArgs = require('./routes/hostedbyRoutes');
 const reviewsArgs = require('./routes/reviewsRoutes');
 const entireHouseArgs = require('./routes/entirehouseRoutes');
+const mapArgs = require('./routes/mapRoutes');
 
 const s3 = new S3();
 const app = express();
@@ -13,6 +14,7 @@ app.use(...headerArgs);
 app.use(...hostedbyArgs);
 app.use(...reviewsArgs);
 app.use(...entireHouseArgs);
+app.use(...mapArgs);
 
 app.get('*', (_req, res) => {
     const params = {
