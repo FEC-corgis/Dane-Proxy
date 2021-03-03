@@ -2,10 +2,6 @@ const express = require('express');
 const { S3 } = require('aws-sdk');
 const headerArgs = require('./routes/headerRoutes');
 const hostedbyArgs = require('./routes/hostedbyRoutes');
-const reviewsArgs = require('./routes/reviewsRoutes');
-const entireHouseArgs = require('./routes/entirehouseRoutes');
-const mapArgs = require('./routes/mapRoutes');
-const morePlacesArgs = require('./routes/morePlaces');
 
 const s3 = new S3();
 const app = express();
@@ -13,10 +9,111 @@ const port = process.env.PORT || 5000;
 
 app.use(...headerArgs);
 app.use(...hostedbyArgs);
-app.use(...reviewsArgs);
-app.use(...entireHouseArgs);
-app.use(...mapArgs);
-app.use(...morePlacesArgs);
+
+app.get('/header.bundle.js', (req, res) => {
+    let params;
+
+    if (req.header('Accept-Encoding').includes('br')) {
+        res.setHeader('Content-Encoding', 'br');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/header.bundle.js.br',
+        };
+    } else if (req.header('Accept-Encoding').includes('gz')) {
+        res.setHeader('Content-Encoding', 'gzip');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/header.bundle.js.gz',
+        };
+    } else {
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/header.bundle.js',
+        };
+    }
+
+    s3.getObject(params).createReadStream().pipe(res);
+});
+
+app.get('/hostedby.bundle.js', (req, res) => {
+    let params;
+
+    if (req.header('Accept-Encoding').includes('br')) {
+        res.setHeader('Content-Encoding', 'br');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/hostedby.bundle.js.br',
+        };
+    } else if (req.header('Accept-Encoding').includes('gz')) {
+        res.setHeader('Content-Encoding', 'gzip');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/hostedby.bundle.js.gz',
+        };
+    } else {
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/hostedby.bundle.js',
+        };
+    }
+
+    s3.getObject(params).createReadStream().pipe(res);
+});
+
+app.get('/common.bundle.js', (req, res) => {
+    let params;
+
+    if (req.header('Accept-Encoding').includes('br')) {
+        res.setHeader('Content-Encoding', 'br');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/common.bundle.js.br',
+        };
+    } else if (req.header('Accept-Encoding').includes('gz')) {
+        res.setHeader('Content-Encoding', 'gzip');
+        res.setHeader('Content-Type', 'application/javascript');
+        res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/common.bundle.js.gz',
+        };
+    } else {
+        params = {
+            Bucket: 'fec-corgis',
+            Key: 'static/common.bundle.js',
+        };
+    }
+
+    s3.getObject(params).createReadStream().pipe(res);
+});
+
+app.get('/style.css', (req, res) => {
+    res.setHeader('Content-Type', 'text/css');
+    res.setHeader('Cache-Control', `public, max-age=${2592000}`);
+
+    const params = {
+        Bucket: 'fec-corgis',
+        Key: 'static/style.css',
+    };
+
+    s3.getObject(params).createReadStream().pipe(res);
+});
 
 app.get('*', (_req, res) => {
     const params = {
